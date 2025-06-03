@@ -6,7 +6,9 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+app.use(cors({
+  origin: "https://test-jpshares-projects.vercel.app"  // <-- il tuo dominio frontend Vercel
+}));
 app.use(express.json());
 
 // Route: Cerca CVE da prodotto usando NVD API
