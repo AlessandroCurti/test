@@ -9,13 +9,13 @@ export default function App() {
 
   const searchCVEs = async () => {
     setLoading(true);
-    const res = await axios.get(`https://test-iay0.onrender.com/api/cve?product=${product}`);
+    const res = await axios.get(`https://test-iay0.onrender.com:10000/api/cve?product=${product}`);
     setCves(res.data);
     setLoading(false);
   };
 
   const askChatGPT = async (cveId, description) => {
-    const res = await axios.post(`https://test-iay0.onrender.com/api/chatgpt`, {
+    const res = await axios.post(`https://test-iay0.onrender.com:10000/api/chatgpt`, {
       cveId,
       description,
     });
