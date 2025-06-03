@@ -9,17 +9,26 @@ export default function App() {
 
   const searchCVEs = async () => {
     setLoading(true);
-    const res = await axios.get(`https://test-iay0.onrender.com:10000/api/cve?product=${product}`);
-    setCves(res.data);
+    try {
+      const res = await axios.get(`https://test-iay0.onrender.com/api/cve?product=${product}`);
+      setCves(res.data);
+    } catch (error) {
+      console.error("Errore durante la ricerca CVE:", error);
+      setCves([]);
+    }
     setLoading(false);
   };
 
   const askChatGPT = async (cveId, description) => {
-    const res = await axios.post(`https://test-iay0.onrender.com:10000/api/chatgpt`, {
-      cveId,
-      description,
-    });
-    setResponseMap((prev) => ({ ...prev, [cveId]: res.data.response }));
+    try {
+      const res = await axios.post("https://test-iay0.onrender.com/api/chatgpt", {
+        cveId,
+        description,
+      });
+      setResponseMap((prev) => ({ ...prev, [cveId]: res.data.response }));
+    } catch (error) {
+      setResponseMap((prev) => ({ ...prev, [cveId]: "Errore nella risposta di ChatGPT" }));
+    }
   };
 
   return (
